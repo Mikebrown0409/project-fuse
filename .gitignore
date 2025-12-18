@@ -40,3 +40,7 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+
+# Internal planning documents
+about.md
+timeline.md
