@@ -3,7 +3,7 @@
 **Tagline:** "The checksum for compliance — portable, machine-verifiable assurance."
 
 ![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)
-![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
 ![Specification](https://img.shields.io/badge/spec-VCE%20v0.1-green.svg)
 ![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)
 
