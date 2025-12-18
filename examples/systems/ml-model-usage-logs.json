@@ -1,0 +1,23 @@
+{
+  "usage_logs": [
+    {
+      "timestamp": "2025-01-15T10:00:00Z",
+      "domain": "research",
+      "model_id": "model-001",
+      "inference_count": 150
+    },
+    {
+      "timestamp": "2025-01-15T11:00:00Z",
+      "domain": "healthcare",
+      "model_id": "model-002",
+      "inference_count": 200
+    },
+    {
+      "timestamp": "2025-01-15T12:00:00Z",
+      "domain": "finance",
+      "model_id": "model-003",
+      "inference_count": 175
+    }
+  ]
+}
+

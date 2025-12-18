@@ -1,0 +1,20 @@
+[package]
+name = "fuse-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+serde_yaml.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+sha2.workspace = true
+hex.workspace = true
+chrono.workspace = true
+risc0-zkvm.workspace = true
+risc0-zkvm-platform.workspace = true
+

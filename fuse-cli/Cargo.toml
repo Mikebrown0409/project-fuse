@@ -1,0 +1,23 @@
+[package]
+name = "fuse-cli"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "fuse-prove"
+path = "src/bin/fuse-prove.rs"
+
+[[bin]]
+name = "fuse-verify"
+path = "src/bin/fuse-verify.rs"
+
+[dependencies]
+fuse-core = { path = "../fuse-core" }
+fuse-checkers = { path = "../fuse-checkers" }
+clap.workspace = true
+anyhow.workspace = true
+serde_json.workspace = true
+

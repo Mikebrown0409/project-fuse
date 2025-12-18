@@ -1,0 +1,17 @@
+{
+  "storage_locations": [
+    {
+      "region": "EU",
+      "datacenter": "eu-west-1",
+      "country": "Ireland",
+      "data_types": ["personal_data", "user_profiles"]
+    },
+    {
+      "region": "EU",
+      "datacenter": "eu-central-1",
+      "country": "Germany",
+      "data_types": ["transaction_logs", "audit_trails"]
+    }
+  ]
+}
+

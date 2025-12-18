@@ -1,0 +1,23 @@
+{
+  "components": [
+    {
+      "name": "crypto-library",
+      "version": "1.2.3",
+      "provenance": "verified-supplier:acme-crypto:v1.2.3",
+      "supplier": "ACME Crypto Inc."
+    },
+    {
+      "name": "auth-service",
+      "version": "2.0.1",
+      "provenance": "verified-supplier:secure-auth:v2.0.1",
+      "supplier": "Secure Auth Systems"
+    },
+    {
+      "name": "database-driver",
+      "version": "3.5.0",
+      "provenance": "verified-supplier:db-drivers:v3.5.0",
+      "supplier": "Database Drivers LLC"
+    }
+  ]
+}
+

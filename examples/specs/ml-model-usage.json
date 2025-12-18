@@ -1,0 +1,16 @@
+{
+  "claim": "ML model usage constraint",
+  "system_hash": "abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+  "constraints": {
+    "max_usage": "10000",
+    "allowed_domains": "research, healthcare, finance"
+  },
+  "jurisdiction": "US, Multi-jurisdictional",
+  "version": "1.0",
+  "expiry": "2026-12-31T23:59:59Z",
+  "metadata": {
+    "standard": "Custom",
+    "description": "ML model usage restrictions and domain limitations"
+  }
+}
+

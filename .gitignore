@@ -1,0 +1,25 @@
+# Rust
+target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build artifacts
+*.vce
+compliance.vce
+output/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+

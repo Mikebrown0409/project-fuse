@@ -1,0 +1,35 @@
+[workspace]
+members = [
+    "fuse-core",
+    "fuse-cli",
+    "fuse-checkers",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Project FUSE Contributors"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/projectfuse/vce-protocol"
+
+[workspace.dependencies]
+# Core dependencies
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+anyhow = "1.0"
+thiserror = "1.0"
+clap = { version = "4.5", features = ["derive"] }
+
+# Cryptography
+sha2 = "0.10"
+hex = "0.4"
+
+# RISC Zero (zkVM)
+risc0-zkvm = "1.0"
+risc0-zkvm-platform = "1.0"
+
+# Time handling
+chrono = { version = "0.4", features = ["serde"] }
+

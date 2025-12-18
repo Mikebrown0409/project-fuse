@@ -1,0 +1,16 @@
+{
+  "claim": "Supply chain provenance",
+  "system_hash": "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+  "constraints": {
+    "provenance_chain": "verified-supplier",
+    "requirement": "All components must have verified provenance chain"
+  },
+  "jurisdiction": "US, NIST",
+  "version": "1.0",
+  "expiry": "2026-12-31T23:59:59Z",
+  "metadata": {
+    "standard": "NIST SP 800-161",
+    "description": "Software supply chain security verification"
+  }
+}
+

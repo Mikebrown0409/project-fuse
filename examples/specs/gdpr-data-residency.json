@@ -1,0 +1,17 @@
+{
+  "claim": "GDPR data residency",
+  "system_hash": "fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210",
+  "constraints": {
+    "data_region": "EU",
+    "requirement": "All personal data must be stored within EU boundaries"
+  },
+  "jurisdiction": "EU, GDPR",
+  "version": "1.0",
+  "expiry": "2026-12-31T23:59:59Z",
+  "metadata": {
+    "standard": "GDPR",
+    "article": "Article 44-49",
+    "description": "Data transfer and residency verification"
+  }
+}
+
