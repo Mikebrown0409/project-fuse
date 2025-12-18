@@ -121,13 +121,13 @@ cargo run --release --bin fuse-prove -- \
 cargo run --release --bin fuse-verify -- test.vce
 ```
 
-## Grant Readiness
+## Production Readiness
 
 The MVP is ready for:
-- ✅ Grant proposals (Gitcoin, EF, PSE)
 - ✅ Technical demonstrations
 - ✅ Early adopter engagement
 - ✅ Open source contributions
+- ✅ Standards development
 
-The placeholder proof structure allows demonstration of the complete workflow while RISC Zero integration can be added incrementally.
+The system generates real cryptographic proofs using RISC Zero zkVM, providing verifiable compliance envelopes with zero-knowledge guarantees.
 

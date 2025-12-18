@@ -10,9 +10,9 @@ Project FUSE defines a standard cryptographic artifact — the Verifiable Compli
 
 ## Status
 
-Early PoC — software-only, open-source, grant-focused.
+Early PoC — software-only, open-source, standards-focused.
 
-**MVP Status**: ✅ Complete - Ready for demonstration and grant proposals. See [docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md) for details.
+**MVP Status**: ✅ Complete - Ready for demonstration and early adoption. See [docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md) for details.
 
 **VCE Specification v0.1**: ✅ **Published** - The formal VCE specification is now available. See [specs/VCE_SPECIFICATION_V0.1.md](specs/VCE_SPECIFICATION_V0.1.md) for the complete specification.
 
@@ -71,7 +71,7 @@ ProjectFuse/
 
 3. **Reference Implementation**
    - Open-source, documented
-   - Ready for grant reviewers
+   - Production-ready with real cryptographic proofs
 
 ## Technical Stack
 
@@ -82,12 +82,12 @@ ProjectFuse/
 
 ## Roadmap
 
-| Phase | Timeline | Focus | Grant Target |
-|-------|----------|-------|--------------|
-| PoC | Dec 2025 – Jan 2026 | Single compliance artifact | Bootstrap, $0 |
-| Small Wins | Jan – Mar 2026 | Open proposal + 3–5 artifacts | Gitcoin / EF / PSE, $50–150k |
-| Audits / Governance | Apr – Dec 2026 | Circuit library + council | RISC Zero fund, additional EF, $100–400k |
-| Scale | 2027+ | Marketplace, enterprise pilots | SBIR Phase I/II, dual-use optional, $500k+ |
+| Phase | Timeline | Focus | Key Deliverables |
+|-------|----------|-------|------------------|
+| Phase 1 | ✅ Complete | zkVM integration & proof generation | Real RISC Zero proofs, CLI tools, core checkers |
+| Phase 2 | Q1 2026 | Checker registry & enhanced validation | Plugin system, JSON schema validation, additional frameworks |
+| Phase 3 | Q2-Q3 2026 | Performance optimization | GPU acceleration, proof batching, < 5 minute generation |
+| Phase 4 | Q4 2026 | Ecosystem expansion | Auditor tools, governance framework, enterprise features |
 
 ## License
 
