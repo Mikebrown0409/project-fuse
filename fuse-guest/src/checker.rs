@@ -52,7 +52,9 @@ pub fn execute_checker() -> JournalOutput {
         .unwrap_or("");
     
     // Route to appropriate checker based on claim
-    if claim.contains("C2PA") || claim.contains("C2PA signature") {
+    if claim.contains("JSON parsing only") {
+        crate::checkers::json_only::check(&spec, &system_data)
+    } else if claim.contains("C2PA") || claim.contains("C2PA signature") {
         crate::checkers::c2pa::check(&spec, &system_data)
     } else if claim.contains("SOC2") {
         let result = crate::checkers::soc2::check(&spec, &system_data);

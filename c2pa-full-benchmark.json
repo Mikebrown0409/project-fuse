@@ -1,0 +1,88 @@
+warning: unused import: `ComplianceResult`
+ --> fuse-core/src/zkvm.rs:4:20
+  |
+4 | use crate::proof::{ComplianceResult, JournalOutput};
+  |                    ^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `from_slice`
+ --> fuse-core/src/zkvm.rs:8:25
+  |
+8 | use risc0_zkvm::serde::{from_slice, to_vec};
+  |                         ^^^^^^^^^^
+
+warning: unexpected `cfg` condition name: `guest_program_built`
+  --> fuse-core/src/zkvm.rs:18:11
+   |
+18 |     #[cfg(guest_program_built)]
+   |           ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(guest_program_built)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(guest_program_built)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+
+warning: unexpected `cfg` condition name: `guest_program_built`
+  --> fuse-core/src/zkvm.rs:23:15
+   |
+23 |     #[cfg(not(guest_program_built))]
+   |               ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(guest_program_built)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(guest_program_built)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: `fuse-core` (lib) generated 4 warnings (run `cargo fix --lib -p fuse-core` to apply 2 suggestions)
+warning: unused import: `VceError`
+ --> fuse-checkers/src/json_only.rs:9:59
+  |
+9 | use fuse_core::{ComplianceSpec, ComplianceResult, Result, VceError};
+  |                                                           ^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `fuse-checkers` (lib) generated 1 warning (run `cargo fix --lib -p fuse-checkers` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 0.77s
+     Running `target/release/fuse-benchmark --checker c2pa --spec examples/specs/c2pa-selective-disclosure.json --system examples/systems/c2pa-test-data-large.json --iterations 1 --json`
+FUSE Benchmark Tool
+===================
+Checker: c2pa
+Spec: examples/specs/c2pa-selective-disclosure.json
+System: examples/systems/c2pa-test-data-large.json
+Iterations: 1
+
+Running iteration 1/1...
+  ✓ Completed in 691.68 seconds (11 minutes 31.68 seconds)
+  Result: JournalOutput { result: Pass, claim_hash: [61, 22, 126, 95, 218, 177, 191, 175, 90, 9, 254, 191, 181, 202, 30, 135, 120, 71, 156, 75, 198, 229, 74, 113, 24, 249, 104, 14, 224, 108, 81, 27], redacted_json: "{\"claim_generator\":\"mock\"}" }
+
+{
+  "checker": "c2pa",
+  "iterations": 1,
+  "average_secs": 691.676377083,
+  "average_minutes": 11.52793961805,
+  "min_secs": 691.676377083,
+  "min_minutes": 11.52793961805,
+  "max_secs": 691.676377083,
+  "max_minutes": 11.52793961805,
+  "first_run_secs": 691.676377083,
+  "first_run_minutes": 11.52793961805,
+  "subsequent_avg_secs": 691.676377083,
+  "subsequent_avg_minutes": 11.52793961805,
+  "results": [
+    {
+      "iteration": 1,
+      "duration_secs": 691.676377083,
+      "duration_minutes": 11.52793961805,
+      "success": true,
+      "error": null
+    }
+  ]
+}
