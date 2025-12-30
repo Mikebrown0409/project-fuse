@@ -5,7 +5,6 @@
 
 use clap::Parser;
 use fuse_cli::c2pa::{create_mock_c2pa_signature_data, c2pa_data_to_json};
-use serde_json::json;
 use std::fs;
 
 #[derive(Parser)]

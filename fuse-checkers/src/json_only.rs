@@ -6,7 +6,7 @@
 //! This checker is used for performance benchmarking to isolate
 //! JSON parsing and filtering costs from cryptographic operations.
 
-use fuse_core::{ComplianceSpec, ComplianceResult, Result, VceError};
+use fuse_core::{ComplianceSpec, ComplianceResult, Result};
 use crate::ComplianceChecker;
 
 pub struct JsonOnlyChecker;

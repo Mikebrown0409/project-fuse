@@ -6,7 +6,7 @@
 use risc0_zkvm::guest::env;
 use alloc::string::String;
 use alloc::vec::Vec;
-use serde_json::{Value, Map};
+use serde_json::Value;
 use serde::{Serialize, Deserialize};
 
 /// Result of a compliance check

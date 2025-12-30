@@ -93,7 +93,7 @@ fn main() -> anyhow::Result<()> {
     
     // Extract the public key raw bytes for reference
     let pub_key_bytes = ee_keypair.public_key_raw();
-    println!("Generated Ed25519 public key: {}", hex::encode(&pub_key_bytes));
+    println!("Generated Ed25519 public key: {}", hex::encode(pub_key_bytes));
 
     // Create a signing key for the signer
     let pkcs8_der = ee_keypair.serialize_der();
@@ -138,7 +138,7 @@ fn main() -> anyhow::Result<()> {
     
     // Save the public key separately for reference
     let pub_key_path = output_path.join("test_pub_key.hex");
-    fs::write(&pub_key_path, hex::encode(&pub_key_bytes))?;
+    fs::write(&pub_key_path, hex::encode(pub_key_bytes))?;
     println!("Saved public key to: {:?}", pub_key_path);
 
     Ok(())

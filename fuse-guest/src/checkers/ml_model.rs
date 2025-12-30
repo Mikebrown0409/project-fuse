@@ -2,7 +2,6 @@
 
 use serde_json::Value;
 use alloc::vec::Vec;
-use alloc::string::String;
 use crate::checker::ComplianceResult;
 
 /// Check ML model usage constraint compliance
