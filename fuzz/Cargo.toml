@@ -14,7 +14,6 @@ cargo-fuzz = true
 [dependencies]
 libfuzzer-sys = "0.4"
 fuse-core = { path = "../fuse-core" }
-fuse-cli = { path = "../fuse-cli" }
 fuse-checkers = { path = "../fuse-checkers" }
 serde_json = "1.0"
 hex = "0.4"

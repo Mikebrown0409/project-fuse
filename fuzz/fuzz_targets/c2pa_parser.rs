@@ -9,7 +9,9 @@ use img_parts::jpeg::Jpeg;
 fuzz_target!(|data: &[u8]| {
     // Test low-level JPEG parsing in-memory (much faster than file I/O)
     // This tests the core parsing logic without filesystem overhead
-    if let Ok(jpeg) = Jpeg::from_bytes(data.into()) {
+    // Clone data to Vec to satisfy lifetime requirements
+    let data_vec = data.to_vec();
+    if let Ok(jpeg) = Jpeg::from_bytes(data_vec.into()) {
         // Extract APP11 segments (JUMBF) - this is what C2PA uses
         for segment in jpeg.segments() {
             if segment.marker() == 0xEB { // APP11
