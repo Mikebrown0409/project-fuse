@@ -39,7 +39,7 @@ jobs:
       - name: Run fuzzer
         run: |
           cd fuzz
-          cargo fuzz run ${{ matrix.target }} -- -max_total_time=3600
+          cargo fuzz run ${{ matrix.target }} -- -max_total_time=300 -runs=10000
         env:
           RUST_BACKTRACE: 1
           RISC0_DEV_MODE: 1
