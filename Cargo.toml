@@ -34,3 +34,6 @@ risc0-zkvm-platform = "1.0"
 # Time handling
 chrono = { version = "0.4", features = ["serde"] }
 
+[workspace.metadata]
+# Feature flags for performance optimization
+# - gpu: Enable GPU acceleration (CUDA/Metal) for proof generation

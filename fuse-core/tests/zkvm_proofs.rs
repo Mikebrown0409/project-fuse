@@ -1,6 +1,6 @@
 //! Integration tests for zkVM proof generation and verification
 
-use fuse_core::{ComplianceSpec, VerifiableComplianceEnvelope, Result};
+use fuse_core::{ComplianceSpec, VerifiableComplianceEnvelope, Result, ProverType};
 use std::collections::BTreeMap;
 use chrono::Utc;
 
@@ -16,7 +16,7 @@ fn test_placeholder_proof_generation() {
         Utc::now() + chrono::Duration::days(365),
     );
 
-    let proof = fuse_core::ComplianceProof::new(
+    let mut proof = fuse_core::ComplianceProof::new(
         spec.hash(),
         fuse_core::ComplianceResult::Pass,
         vec![],
@@ -41,8 +41,8 @@ fn test_proof_with_real_zkvm() {
     let system_data_json = r#"{"access_logs": []}"#;
     
     // Try to generate proof - may succeed if guest program is built, or fail if not
-    match fuse_core::zkvm::generate_proof(spec_json, system_data_json) {
-        Ok((receipt_bytes, result, journal_bytes)) => {
+    match fuse_core::zkvm::generate_proof(spec_json, system_data_json, ProverType::Local) {
+        Ok((receipt_bytes, journal_output, journal_bytes)) => {
             // Guest program is built and proof generation succeeded
             assert!(!receipt_bytes.is_empty(), "Receipt should not be empty");
             assert!(!journal_bytes.is_empty(), "Journal should not be empty");
@@ -51,8 +51,8 @@ fn test_proof_with_real_zkvm() {
             let verify_result = fuse_core::zkvm::verify_proof(&receipt_bytes);
             assert!(verify_result.is_ok(), "Proof verification should succeed");
             
-            let (verified_result, verified_journal) = verify_result.unwrap();
-            assert_eq!(result, verified_result, "Verified result should match generated result");
+            let (verified_journal_output, verified_journal) = verify_result.unwrap();
+            assert_eq!(journal_output.result, verified_journal_output.result, "Verified result should match generated result");
             assert_eq!(journal_bytes, verified_journal, "Verified journal should match generated journal");
         }
         Err(e) => {
@@ -82,7 +82,7 @@ fn test_envelope_with_placeholder_proof() {
         vec![],
     );
 
-    let envelope = VerifiableComplianceEnvelope::new(spec, proof);
+    let mut envelope = VerifiableComplianceEnvelope::new(spec, proof);
     assert!(envelope.verify().is_ok());
     assert!(envelope.is_compliant().unwrap());
 }
@@ -102,7 +102,7 @@ fn test_envelope_with_real_zkvm_proof() {
     let system_data_json = r#"{"access_logs": []}"#;
     
     // Try to generate real proof
-    if let Ok((receipt_bytes, result, journal_bytes)) = fuse_core::zkvm::generate_proof(spec_json, system_data_json) {
+    if let Ok((receipt_bytes, journal_output, journal_bytes)) = fuse_core::zkvm::generate_proof(spec_json, system_data_json, ProverType::Local) {
         // Parse spec to get hash
         let spec: ComplianceSpec = serde_json::from_str(spec_json).unwrap();
         let spec_hash = spec.hash();
@@ -111,7 +111,7 @@ fn test_envelope_with_real_zkvm_proof() {
         let proof = fuse_core::ComplianceProof::from_risc_zero_receipt(
             spec_hash,
             receipt_bytes,
-            result,
+            journal_output,
             journal_bytes,
         );
         
@@ -119,9 +119,9 @@ fn test_envelope_with_real_zkvm_proof() {
         assert!(!proof.is_placeholder(), "Proof should be real zkVM proof");
         
         // Create envelope
-        let envelope = VerifiableComplianceEnvelope::new(spec, proof);
+        let mut envelope = VerifiableComplianceEnvelope::new(spec, proof);
         
-        // Verify envelope
+        // Verify envelope (verify needs mutable reference)
         assert!(envelope.verify().is_ok(), "Envelope verification should succeed");
         assert!(envelope.is_compliant().unwrap(), "Compliance check should pass");
     } else {
@@ -129,4 +129,3 @@ fn test_envelope_with_real_zkvm_proof() {
         println!("Skipping test: Guest program not built");
     }
 }
-

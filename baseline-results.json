@@ -1,0 +1,61 @@
+   Compiling ct-codecs v1.1.6
+   Compiling fuse-core v1.1.0 (/Users/lydiabrown/Documents/ProjectFuse/fuse-core)
+   Compiling ed25519-compact v2.2.0
+warning: unused import: `from_slice`
+ --> fuse-core/src/zkvm.rs:8:25
+  |
+8 | use risc0_zkvm::serde::{from_slice, to_vec};
+  |                         ^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unexpected `cfg` condition name: `guest_program_built`
+  --> fuse-core/src/zkvm.rs:16:11
+   |
+16 |     #[cfg(guest_program_built)]
+   |           ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(guest_program_built)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(guest_program_built)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+
+warning: unexpected `cfg` condition name: `guest_program_built`
+  --> fuse-core/src/zkvm.rs:22:15
+   |
+22 |     #[cfg(not(guest_program_built))]
+   |               ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(guest_program_built)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(guest_program_built)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+   Compiling fuse-checkers v1.1.0 (/Users/lydiabrown/Documents/ProjectFuse/fuse-checkers)
+warning: `fuse-core` (lib) generated 3 warnings (run `cargo fix --lib -p fuse-core` to apply 1 suggestion)
+   Compiling fuse-cli v1.1.0 (/Users/lydiabrown/Documents/ProjectFuse/fuse-cli)
+warning: unused import: `Duration`
+  --> fuse-cli/src/bin/fuse-benchmark.rs:10:17
+   |
+10 | use std::time::{Duration, Instant};
+   |                 ^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+error[E0689]: can't call method `max` on ambiguous numeric type `{float}`
+   --> fuse-cli/src/bin/fuse-benchmark.rs:131:57
+    |
+131 |     let max_secs = durations.iter().fold(0.0, |a, &b| a.max(b));
+    |                                                -        ^^^
+    |                                                |
+    |                                                you must specify a type for this binding, like `f32`
+
+For more information about this error, try `rustc --explain E0689`.
+warning: `fuse-cli` (bin "fuse-benchmark") generated 1 warning
+error: could not compile `fuse-cli` (bin "fuse-benchmark") due to 1 previous error; 1 warning emitted

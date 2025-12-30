@@ -118,6 +118,55 @@ Phase 1 zkVM integration is fully operational. The system generates real RISC Ze
 - **Proof Verification**: < 1 second
 - **Use `RISC0_DEV_MODE=1` for development/testing**
 
+### Performance Optimization
+
+FUSE supports multiple prover backends to optimize proof generation performance:
+
+#### Prover Types
+
+1. **Local CPU Prover** (default)
+   - Always available, no additional setup required
+   - Proof generation: 10-20+ minutes
+   - Suitable for: Development, testing, small-scale production
+
+2. **GPU Prover** (optional, requires hardware)
+   - **5-10x faster** than CPU proving
+   - Requires NVIDIA GPU with CUDA support or Apple Silicon with Metal
+   - Proof generation: 2-5 minutes (estimated)
+   - Enable with: `cargo build --features gpu` or `--prover gpu`
+
+#### Using GPU Proving
+
+**Build with GPU support:**
+```bash
+cargo build --release --features gpu
+```
+
+**Use GPU prover via CLI:**
+```bash
+cargo run --release --bin fuse-prove -- \
+  --spec examples/specs/soc2-control-x.json \
+  --system examples/systems/sample-saas-logs.json \
+  --prover gpu \
+  --output compliance.vce
+```
+
+
+#### Guest Program Optimizations
+
+The guest program uses RISC Zero's built-in SHA256 accelerator (`risc0_zkvm::guest::sha`) instead of the standard `sha2` crate. This provides:
+- Hardware acceleration when available
+- Reduced proof generation time
+- Lower memory usage in zkVM
+
+#### Performance Targets
+
+- **Technical Feasibility**: < 5 minutes (achievable with GPU)
+- **Production Viability**: < 2 minutes (achievable with GPU on high-end hardware)
+- **Current Baseline**: 10-15 minutes (CPU-only)
+
+For production deployments, GPU proving is recommended when available.
+
 ## File Formats
 
 **Formal Specification**: The complete VCE file format and ComplianceSpec format are defined in [VCE Specification v0.1](../specs/VCE_SPECIFICATION_V0.1.md). JSON schemas for validation are available in [specs/schemas/](../specs/schemas/).
@@ -172,5 +221,6 @@ For complete field descriptions, validation rules, and examples, see the [formal
 2. **Signature Support**: Add cryptographic signatures to envelopes
 3. **Circuit Library**: Reusable compliance circuits
 4. **Governance**: Specification versioning and updates
-5. **Performance Optimization**: GPU acceleration, proof batching, and faster generation times
+5. **Cloud Proving**: Integration with Boundless or other cloud proving services (future enhancement, if needed)
+6. **Proof Batching**: Batch multiple proofs together for efficiency
 

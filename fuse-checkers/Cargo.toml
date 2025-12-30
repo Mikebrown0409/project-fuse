@@ -11,4 +11,7 @@ fuse-core = { path = "../fuse-core" }
 serde_json.workspace = true
 anyhow.workspace = true
 thiserror.workspace = true
+# Ed25519 for host-side checker
+ed25519-compact = "2.0"
+hex.workspace = true
 

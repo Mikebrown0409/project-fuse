@@ -30,7 +30,7 @@ impl VerifiableComplianceEnvelope {
     }
 
     /// Verify the entire envelope
-    pub fn verify(&self) -> Result<()> {
+    pub fn verify(&mut self) -> Result<()> {
         // Validate the specification
         self.spec.validate()?;
 
@@ -50,7 +50,7 @@ impl VerifiableComplianceEnvelope {
     }
 
     /// Check if the envelope represents a passing compliance check
-    pub fn is_compliant(&self) -> Result<bool> {
+    pub fn is_compliant(&mut self) -> Result<bool> {
         self.verify()?;
         Ok(self.proof.result == crate::proof::ComplianceResult::Pass)
     }
@@ -94,7 +94,7 @@ mod tests {
             vec![],
         );
 
-        let envelope = VerifiableComplianceEnvelope::new(spec, proof);
+        let mut envelope = VerifiableComplianceEnvelope::new(spec, proof);
         assert!(envelope.verify().is_ok());
     }
 }

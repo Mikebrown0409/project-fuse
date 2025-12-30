@@ -116,8 +116,27 @@ The VCE format is designed to be:
 
 - [Quick Start Guide](docs/QUICKSTART.md) - Get started in minutes
 - [Architecture Documentation](docs/ARCHITECTURE.md) - Technical deep dive
+- [Testing Guide](docs/TESTING.md) - How to run tests and measure coverage
 - [Implementation Status](docs/IMPLEMENTATION_STATUS.md) - Current state and roadmap
 - [VCE Specification v0.1](specs/VCE_SPECIFICATION_V0.1.md) - Formal specification
+
+## Testing
+
+Run tests with:
+```bash
+# All tests (uses dev mode for speed)
+RISC0_DEV_MODE=1 cargo test --workspace
+
+# Or use Makefile
+make test
+```
+
+Measure coverage:
+```bash
+make coverage
+```
+
+See [docs/TESTING.md](docs/TESTING.md) for detailed testing information.
 
 ## Contributing
 

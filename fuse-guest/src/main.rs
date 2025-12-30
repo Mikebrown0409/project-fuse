@@ -14,8 +14,8 @@ risc0_zkvm::guest::entry!(main);
 
 fn main() {
     // Execute the checker
-    let result = checker::execute_checker();
+    let journal_output = checker::execute_checker();
     
-    // Commit result to journal (public output)
-    env::commit(&result);
+    // Commit complete output to journal
+    env::commit(&journal_output);
 }

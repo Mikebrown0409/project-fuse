@@ -6,8 +6,18 @@ use crate::error::Result;
 /// Result of a compliance check
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum ComplianceResult {
-    Pass,
-    Fail,
+    Pass = 0,
+    Fail = 1,
+}
+
+/// The complete output committed to the journal by the guest
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JournalOutput {
+    pub result: ComplianceResult,
+    // Use empty vec instead of Option to avoid serialization issues
+    pub claim_hash: Vec<u8>,
+    // Serialize JSON as string to avoid RISC Zero journal format issues
+    pub redacted_json: String,
 }
 
 impl std::fmt::Display for ComplianceResult {
@@ -38,6 +48,9 @@ pub struct ComplianceProof {
 
     /// RISC Zero journal (public outputs from zkVM execution)
     pub journal: Vec<u8>,
+
+    /// Decoded journal output
+    pub journal_output: Option<JournalOutput>,
 }
 
 impl ComplianceProof {
@@ -45,15 +58,16 @@ impl ComplianceProof {
     pub fn from_risc_zero_receipt(
         spec_hash: String,
         receipt_bytes: Vec<u8>,
-        result: ComplianceResult,
+        journal_output: JournalOutput,
         journal: Vec<u8>,
     ) -> Self {
         Self {
             proof_data: receipt_bytes,
             spec_hash,
-            result,
+            result: journal_output.result,
             timestamp: chrono::Utc::now(),
             journal,
+            journal_output: Some(journal_output),
         }
     }
 
@@ -71,6 +85,7 @@ impl ComplianceProof {
             result,
             timestamp: chrono::Utc::now(),
             journal,
+            journal_output: None,
         }
     }
     
@@ -81,20 +96,20 @@ impl ComplianceProof {
 
     /// Verify the proof
     /// In production, this would use RISC Zero's verifier
-    pub fn verify(&self) -> Result<()> {
+    pub fn verify(&mut self) -> Result<()> {
         // If this is a placeholder proof, allow it for backward compatibility
         if self.is_placeholder() {
             return Ok(());
         }
 
         // For real proofs, verify using RISC Zero
-        crate::zkvm::verify_proof(&self.proof_data)
-            .map(|_| ())
-            .map_err(|e| crate::VceError::ProofVerificationFailed(e.to_string()))
+        let (output, _) = crate::zkvm::verify_proof(&self.proof_data)?;
+        self.journal_output = Some(output);
+        Ok(())
     }
 
     /// Check if the proof is valid and the result is Pass
-    pub fn is_valid_pass(&self) -> Result<bool> {
+    pub fn is_valid_pass(&mut self) -> Result<bool> {
         self.verify()?;
         Ok(self.result == ComplianceResult::Pass)
     }

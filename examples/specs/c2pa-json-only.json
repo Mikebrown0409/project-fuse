@@ -1,0 +1,23 @@
+{
+  "claim": "C2PA JSON parsing only",
+  "system_hash": "N/A",
+  "constraints": {
+    "algorithm": "N/A",
+    "message_format": "hex-encoded bytes",
+    "signature_format": "hex-encoded bytes",
+    "description": "Micro-test for measuring JSON parsing and filtering cost (no signature verification)"
+  },
+  "disclosed_fields": [
+    "claim_generator",
+    "capture_time",
+    "issuer"
+  ],
+  "jurisdiction": "N/A",
+  "version": "1.0",
+  "expiry": "2099-12-31T23:59:59Z",
+  "metadata": {
+    "purpose": "Day 10 Performance Benchmark: JSON Parsing Cost Isolation",
+    "note": "This spec routes to JSON-only checker that skips all cryptographic operations"
+  }
+}
+

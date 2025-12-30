@@ -1,0 +1,16 @@
+{
+  "claim": "Ed25519 signature verification",
+  "system_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "constraints": {
+    "algorithm": "Ed25519",
+    "description": "Minimal Ed25519 signature verification for performance benchmarking"
+  },
+  "jurisdiction": "N/A",
+  "version": "1.0",
+  "expiry": "2099-12-31T23:59:59Z",
+  "metadata": {
+    "purpose": "Performance benchmark for Witness Spike Day 1-2",
+    "note": "This is a minimal spec for testing Ed25519 signature verification in zkVM"
+  }
+}
+

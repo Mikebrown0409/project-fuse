@@ -1,0 +1,21 @@
+{
+  "claim": "C2PA signature verification with selective disclosure",
+  "system_hash": "N/A",
+  "constraints": {
+    "algorithm": "Ed25519",
+    "message_format": "hex-encoded bytes",
+    "signature_format": "hex-encoded bytes"
+  },
+  "disclosed_fields": [
+    "claim_generator",
+    "capture_time",
+    "issuer"
+  ],
+  "jurisdiction": "N/A",
+  "version": "1.0",
+  "expiry": "2099-12-31T23:59:59Z",
+  "metadata": {
+    "purpose": "Phase 2 Witness Pivot: Selective Disclosure Proof"
+  }
+}
+

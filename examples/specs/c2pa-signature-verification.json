@@ -1,0 +1,17 @@
+{
+  "claim": "C2PA signature verification",
+  "system_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "constraints": {
+    "algorithm": "Ed25519",
+    "format": "C2PA",
+    "description": "C2PA signature verification using Ed25519"
+  },
+  "jurisdiction": "N/A",
+  "version": "1.0",
+  "expiry": "2099-12-31T23:59:59Z",
+  "metadata": {
+    "purpose": "C2PA signature verification for Witness Spike Phase 1",
+    "note": "Verifies Ed25519 signatures from C2PA manifests"
+  }
+}
+

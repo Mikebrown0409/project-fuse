@@ -1,0 +1,64 @@
+   Compiling fuse-core v1.1.0 (/Users/lydiabrown/Documents/ProjectFuse/fuse-core)
+warning: unused import: `from_slice`
+ --> fuse-core/src/zkvm.rs:8:25
+  |
+8 | use risc0_zkvm::serde::{from_slice, to_vec};
+  |                         ^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unexpected `cfg` condition name: `guest_program_built`
+  --> fuse-core/src/zkvm.rs:16:11
+   |
+16 |     #[cfg(guest_program_built)]
+   |           ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(guest_program_built)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(guest_program_built)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+   = note: `#[warn(unexpected_cfgs)]` on by default
+
+warning: unexpected `cfg` condition name: `guest_program_built`
+  --> fuse-core/src/zkvm.rs:22:15
+   |
+22 |     #[cfg(not(guest_program_built))]
+   |               ^^^^^^^^^^^^^^^^^^^
+   |
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(guest_program_built)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(guest_program_built)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+   Compiling fuse-checkers v1.1.0 (/Users/lydiabrown/Documents/ProjectFuse/fuse-checkers)
+warning: `fuse-core` (lib) generated 3 warnings (run `cargo fix --lib -p fuse-core` to apply 1 suggestion)
+   Compiling fuse-cli v1.1.0 (/Users/lydiabrown/Documents/ProjectFuse/fuse-cli)
+    Finished `release` profile [optimized] target(s) in 4.69s
+     Running `target/release/fuse-benchmark --checker baseline --spec examples/specs/soc2-control-x.json --system examples/systems/sample-saas-logs-1000.json --iterations 1`
+FUSE Benchmark Tool
+===================
+Checker: baseline
+Spec: examples/specs/soc2-control-x.json
+System: examples/systems/sample-saas-logs-1000.json
+Iterations: 1
+
+Running iteration 1/1...
+  ✓ Completed in 1427.72 seconds (23 minutes 47.72 seconds)
+  Result: Pass
+
+Benchmark Summary
+=================
+Checker: baseline
+Iterations: 1
+
+Average: 1427.72 seconds (23.80 minutes)
+Min:     1427.72 seconds (23.80 minutes)
+Max:     1427.72 seconds (23.80 minutes)
+
+First run:     1427.72 seconds (23.80 minutes)
+Subsequent avg: 1427.72 seconds (23.80 minutes)

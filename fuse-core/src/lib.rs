@@ -13,4 +13,5 @@ pub use spec::ComplianceSpec;
 pub use envelope::VerifiableComplianceEnvelope;
 pub use proof::{ComplianceProof, ComplianceResult};
 pub use error::{VceError, Result};
+pub use zkvm::ProverType;
 
