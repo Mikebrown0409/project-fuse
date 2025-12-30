@@ -7,6 +7,9 @@ publish = false
 
 [workspace]
 
+[lib]
+path = "fuzz_targets/lib.rs"
+
 [package.metadata]
 cargo-fuzz = true
 
