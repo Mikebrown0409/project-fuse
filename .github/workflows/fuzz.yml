@@ -35,7 +35,7 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             fuzz/target
-          key: ${{ runner.os }}-fuzz-${{ matrix.target }}-${{ hashFiles('fuzz/Cargo.toml', 'fuzz/Cargo.lock', 'fuzz/fuzz_targets/' + matrix.target + '.rs') }}
+          key: ${{ runner.os }}-fuzz-${{ matrix.target }}-${{ hashFiles('fuzz/Cargo.toml', 'fuzz/Cargo.lock', format('fuzz/fuzz_targets/{0}.rs', matrix.target)) }}
           restore-keys: |
             ${{ runner.os }}-fuzz-${{ matrix.target }}-
             ${{ runner.os }}-fuzz-
