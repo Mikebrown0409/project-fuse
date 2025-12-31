@@ -1,5 +1,21 @@
 #![no_main]
 use libfuzzer_sys::fuzz_target;
+use serde::{Deserialize, Serialize};
+
+// Duplicate JournalOutput and ComplianceResult to avoid pulling in fuse-core (RISC Zero deps)
+// This matches fuse-core/src/proof.rs exactly
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+enum ComplianceResult {
+    Pass = 0,
+    Fail = 1,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct JournalOutput {
+    result: ComplianceResult,
+    claim_hash: Vec<u8>,
+    redacted_json: String,
+}
 
 // Fuzz target for Borsh deserialization
 // Tests Borsh deserialization used by RISC Zero for journal decoding.
@@ -8,12 +24,6 @@ use libfuzzer_sys::fuzz_target;
 // - Buffer overflows
 // - Memory safety issues
 fuzz_target!(|data: &[u8]| {
-    // Try to deserialize as JournalOutput structure
-    // Note: This is a simplified test - actual journal format is RISC Zero specific
-    // but we can test basic Borsh operations
-    
-    use fuse_core::JournalOutput;
-    
     // Try deserializing - should handle errors gracefully
     let _ = bincode::deserialize::<JournalOutput>(data);
     
