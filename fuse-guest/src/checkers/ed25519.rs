@@ -9,12 +9,13 @@ use ed25519_dalek::{VerifyingKey, Signature};
 
 /// Check Ed25519 signature verification
 ///
-/// Expected system_data format:
+/// Expected `system_data` format:
 /// {
-///   "public_key": "<hex-encoded 32-byte public key>",
+///   "`public_key"`: "<hex-encoded 32-byte public key>",
 ///   "message": "<hex-encoded message bytes>",
 ///   "signature": "<hex-encoded 64-byte signature>"
 /// }
+#[must_use] 
 pub fn check(_spec: &Value, system_data: &Value) -> ComplianceResult {
     // Extract public key, message, and signature from system_data
     let public_key_hex = match system_data.get("public_key")
@@ -84,7 +85,7 @@ pub fn check(_spec: &Value, system_data: &Value) -> ComplianceResult {
 
     // Verify signature (ed25519-dalek uses verify_strict for better security)
     match public_key.verify_strict(&message_bytes, &signature) {
-        Ok(_) => ComplianceResult::Pass,
+        Ok(()) => ComplianceResult::Pass,
         Err(_) => ComplianceResult::Fail,
     }
 }

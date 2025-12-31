@@ -22,11 +22,11 @@ fn main() -> anyhow::Result<()> {
     let args = Args::parse();
     let path = Path::new(&args.input);
 
-    println!("🔍 Loading C2PA manifest from: {:?}", path);
+    println!("🔍 Loading C2PA manifest from: {path:?}");
     
     // 1. Try high-level C2PA Reader
     if let Some(format) = c2pa::format_from_path(path) {
-        println!("  Detected format: {}", format);
+        println!("  Detected format: {format}");
     }
     
     match Reader::from_file(path) {
@@ -39,7 +39,7 @@ fn main() -> anyhow::Result<()> {
                 }
             }
         },
-        Err(e) => println!("  C2PA Reader failed: {}", e),
+        Err(e) => println!("  C2PA Reader failed: {e}"),
     }
 
     // 2. Try low-level img-parts to find JUMBF segments
@@ -53,7 +53,7 @@ fn main() -> anyhow::Result<()> {
         if segment.marker() == 0xEB {
             jumbf_segments += 1;
             let data = segment.contents();
-            println!("  Found APP11 (JUMBF) segment #{}", jumbf_segments);
+            println!("  Found APP11 (JUMBF) segment #{jumbf_segments}");
             println!("    Size: {} bytes", data.len());
             if data.len() > 10 {
                 println!("    Preview: {:02x?}", &data[..std::cmp::min(data.len(), 16)]);

@@ -38,6 +38,7 @@ pub struct ComplianceSpec {
 
 impl ComplianceSpec {
     /// Create a new compliance specification
+    #[must_use] 
     pub fn new(
         claim: String,
         system_hash: String,
@@ -59,7 +60,8 @@ impl ComplianceSpec {
     }
 
     /// Compute the hash of this specification
-    /// Uses BTreeMap for deterministic key ordering
+    /// Uses `BTreeMap` for deterministic key ordering
+    #[must_use] 
     pub fn hash(&self) -> String {
         let json = serde_json::to_string(self).expect("Failed to serialize spec");
         let mut hasher = Sha256::new();
@@ -68,6 +70,7 @@ impl ComplianceSpec {
     }
 
     /// Check if the specification has expired
+    #[must_use] 
     pub fn is_expired(&self) -> bool {
         Utc::now() > self.expiry
     }

@@ -98,7 +98,7 @@ fn main() -> anyhow::Result<()> {
     // Create a signing key for the signer
     let pkcs8_der = ee_keypair.serialize_der();
     let signing_key = SigningKey::from_pkcs8_der(&pkcs8_der)
-        .map_err(|e| anyhow::anyhow!("Failed to parse PKCS#8: {}", e))?;
+        .map_err(|e| anyhow::anyhow!("Failed to parse PKCS#8: {e}"))?;
 
     // 3. Create a C2PA manifest definition
     let manifest_json = json!({
@@ -134,12 +134,12 @@ fn main() -> anyhow::Result<()> {
     let dest_path = output_path.join("signed_test.c2pa");
     fs::write(&dest_path, dest_writer.into_inner())?;
 
-    println!("✅ Generated real signed C2PA manifest at: {:?}", dest_path);
+    println!("✅ Generated real signed C2PA manifest at: {dest_path:?}");
     
     // Save the public key separately for reference
     let pub_key_path = output_path.join("test_pub_key.hex");
     fs::write(&pub_key_path, hex::encode(pub_key_bytes))?;
-    println!("Saved public key to: {:?}", pub_key_path);
+    println!("Saved public key to: {pub_key_path:?}");
 
     Ok(())
 }

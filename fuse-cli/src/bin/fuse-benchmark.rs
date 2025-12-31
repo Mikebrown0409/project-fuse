@@ -87,7 +87,7 @@ fn main() -> anyhow::Result<()> {
                     duration.as_secs() / 60,
                     duration.as_secs_f64() % 60.0
                 );
-                println!("  Result: {:?}", result);
+                println!("  Result: {result:?}");
 
                 results.push(BenchmarkResult {
                     iteration: i,
@@ -100,8 +100,8 @@ fn main() -> anyhow::Result<()> {
                 let duration = start.elapsed();
                 let duration_secs = duration.as_secs_f64();
 
-                println!("  ✗ Failed after {:.2} seconds", duration_secs);
-                println!("  Error: {}", e);
+                println!("  ✗ Failed after {duration_secs:.2} seconds");
+                println!("  Error: {e}");
 
                 results.push(BenchmarkResult {
                     iteration: i,

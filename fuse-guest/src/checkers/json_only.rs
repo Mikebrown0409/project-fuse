@@ -13,6 +13,7 @@ use crate::checker::{ComplianceResult, JournalOutput};
 use alloc::vec::Vec;
 use alloc::string::String;
 
+#[must_use] 
 pub fn check(spec: &Value, system_data: &Value) -> JournalOutput {
     // Extract claim JSON (skip all cryptographic operations)
     let claim_json = match system_data.get("claim") {

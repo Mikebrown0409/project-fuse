@@ -30,6 +30,7 @@ pub struct JournalOutput {
 /// 
 /// Reads spec and system data from host, parses JSON, and executes
 /// the appropriate checker based on the claim type.
+#[must_use] 
 pub fn execute_checker() -> JournalOutput {
     // Read inputs from host
     let spec_json: String = env::read();

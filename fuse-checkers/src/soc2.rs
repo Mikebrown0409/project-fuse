@@ -11,7 +11,7 @@ impl ComplianceChecker for Soc2ControlXChecker {
         // Parse system data (expected to be JSON with access logs)
         let data: Value = serde_json::from_str(system_data)
             .map_err(|e| fuse_core::VceError::InvalidSpec(
-                format!("Failed to parse system data: {}", e)
+                format!("Failed to parse system data: {e}")
             ))?;
 
         // Extract sampling constraint

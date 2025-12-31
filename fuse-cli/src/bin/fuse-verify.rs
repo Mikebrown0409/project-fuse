@@ -82,13 +82,13 @@ fn main() -> Result<()> {
                     std::process::exit(1);
                 }
                 Err(e) => {
-                    eprintln!("❌ Error checking compliance: {}", e);
+                    eprintln!("❌ Error checking compliance: {e}");
                     std::process::exit(1);
                 }
             }
         }
         Err(e) => {
-            eprintln!("❌ Verification failed: {}", e);
+            eprintln!("❌ Verification failed: {e}");
             std::process::exit(1);
         }
     }

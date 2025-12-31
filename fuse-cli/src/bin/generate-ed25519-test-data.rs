@@ -16,7 +16,7 @@ fn main() -> anyhow::Result<()> {
     // Seed must be exactly 32 bytes
     let seed_bytes: [u8; 32] = *b"test-seed-for-ed25519-benchmark!";
     let seed = Seed::from_slice(&seed_bytes)
-        .map_err(|e| anyhow::anyhow!("Failed to create seed: {}", e))?;
+        .map_err(|e| anyhow::anyhow!("Failed to create seed: {e}"))?;
     let keypair = KeyPair::from_seed(seed);
 
     // Test message

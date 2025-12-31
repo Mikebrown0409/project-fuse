@@ -4,6 +4,7 @@ use serde_json::Value;
 use crate::checker::ComplianceResult;
 
 /// Check supply chain provenance compliance
+#[must_use] 
 pub fn check(spec: &Value, system_data: &Value) -> ComplianceResult {
     // Extract required provenance chain
     let required_chain = match spec.get("constraints")

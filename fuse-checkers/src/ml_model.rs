@@ -10,7 +10,7 @@ impl ComplianceChecker for MlModelChecker {
     fn check(&self, spec: &ComplianceSpec, system_data: &str) -> Result<ComplianceResult> {
         let data: Value = serde_json::from_str(system_data)
             .map_err(|e| fuse_core::VceError::InvalidSpec(
-                format!("Failed to parse system data: {}", e)
+                format!("Failed to parse system data: {e}")
             ))?;
 
         // Extract usage constraints
@@ -21,7 +21,7 @@ impl ComplianceChecker for MlModelChecker {
 
         let allowed_domains = spec.constraints
             .get("allowed_domains")
-            .map(|s| s.split(',').map(|d| d.trim()).collect::<Vec<_>>())
+            .map(|s| s.split(',').map(str::trim).collect::<Vec<_>>())
             .unwrap_or_default();
 
         // Check model usage

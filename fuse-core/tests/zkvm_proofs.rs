@@ -32,7 +32,7 @@ fn test_proof_with_real_zkvm() {
     let spec_json = r#"{
         "claim": "SOC2 control X verified",
         "system_hash": "test",
-        "constraints": {"sampling": "last 1000 events"},
+        "constraints": {"sampling": "0"},
         "jurisdiction": "US, SEC",
         "version": "1.0",
         "expiry": "2026-12-31T23:59:59Z"
@@ -93,7 +93,7 @@ fn test_envelope_with_real_zkvm_proof() {
     let spec_json = r#"{
         "claim": "SOC2 control X verified",
         "system_hash": "test",
-        "constraints": {"sampling": "last 1000 events"},
+        "constraints": {"sampling": "0"},
         "jurisdiction": "US, SEC",
         "version": "1.0",
         "expiry": "2026-12-31T23:59:59Z"

@@ -143,6 +143,7 @@ pub fn create_mock_c2pa_signature_data() -> Result<C2paSignatureData> {
 }
 
 /// Convert C2PA signature data to JSON format for system data
+#[must_use] 
 pub fn c2pa_data_to_json(data: &C2paSignatureData) -> serde_json::Value {
     json!({
         "public_key": data.public_key,

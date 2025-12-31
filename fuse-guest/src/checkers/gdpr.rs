@@ -4,6 +4,7 @@ use serde_json::Value;
 use crate::checker::ComplianceResult;
 
 /// Check GDPR data residency compliance
+#[must_use] 
 pub fn check(spec: &Value, system_data: &Value) -> ComplianceResult {
     // Extract required region from constraints
     let required_region = match spec.get("constraints")

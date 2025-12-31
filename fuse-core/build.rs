@@ -18,13 +18,12 @@ fn main() {
         let path = std::path::Path::new(guest_elf_path);
         if path.exists() {
             println!("cargo:rustc-cfg=guest_program_built");
-            println!("cargo:rerun-if-changed={}", guest_elf_path);
-            eprintln!("[build.rs] ✅ Found guest ELF at: {}", guest_elf_path);
+            println!("cargo:rerun-if-changed={guest_elf_path}");
+            eprintln!("[build.rs] ✅ Found guest ELF at: {guest_elf_path}");
             found = true;
             break;
-        } else {
-            eprintln!("[build.rs] ❌ Not found: {}", guest_elf_path);
         }
+        eprintln!("[build.rs] ❌ Not found: {guest_elf_path}");
     }
     
     if !found {

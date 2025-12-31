@@ -5,7 +5,7 @@ use fuse_core::{ComplianceSpec, VerifiableComplianceEnvelope, Result, ProverType
 use fuse_checkers::CheckerRegistry;
 use std::path::PathBuf;
 
-/// CLI argument representation of ProverType
+/// CLI argument representation of `ProverType`
 #[derive(Debug, Clone, Copy, ValueEnum)]
 enum ProverTypeArg {
     /// Local CPU prover (default)
@@ -83,7 +83,7 @@ fn main() -> Result<()> {
     let checker = registry.get_checker(&spec.claim)?;
     
     let result = checker.check(&spec, &system_data)?;
-    println!("   Result: {}", result);
+    println!("   Result: {result}");
 
     println!("\n🔐 Generating zero-knowledge proof...");
     let spec_hash = spec.hash();
@@ -106,7 +106,7 @@ fn main() -> Result<()> {
             )
         }
         Err(e) => {
-            println!("   ⚠ Falling back to placeholder proof: {}", e);
+            println!("   ⚠ Falling back to placeholder proof: {e}");
             println!("   (This is expected if guest program is not yet built)");
             fuse_core::ComplianceProof::new(
                 spec_hash,

@@ -3,7 +3,7 @@
 **Tagline:** "The checksum for compliance — portable, machine-verifiable assurance."
 
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)
-![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
+![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
 ![Specification](https://img.shields.io/badge/spec-VCE%20v0.1-green.svg)
 ![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)
 
@@ -156,6 +156,8 @@ See [SECURITY.md](SECURITY.md) for security policy and [docs/SECURITY_REVIEW.md]
 ## License
 
 This project is licensed under the Apache License 2.0. See [LICENSE](LICENSE) for details.
+
+> **Note:** FUSE is a proof-of-verification infrastructure. Higher-level trust decisions belong to downstream systems.
 
 ## Contributing
 

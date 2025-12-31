@@ -46,9 +46,9 @@ fn get_guest_elf() -> Option<&'static [u8]> {
 fn compute_image_id(elf: &[u8]) -> Result<risc0_zkvm::sha::Digest> {
     use risc0_zkvm_platform::{PAGE_SIZE, memory::GUEST_MAX_MEM};
     let program = Program::load_elf(elf, GUEST_MAX_MEM as u32)
-        .map_err(|e| VceError::RiscZero(format!("Failed to load ELF binary: {}. The ELF may be corrupted or not a valid RISC Zero guest program.", e)))?;
+        .map_err(|e| VceError::RiscZero(format!("Failed to load ELF binary: {e}. The ELF may be corrupted or not a valid RISC Zero guest program.")))?;
     let image = MemoryImage::new(&program, PAGE_SIZE as u32)
-        .map_err(|e| VceError::RiscZero(format!("Failed to create memory image from ELF: {}. This may indicate an issue with the guest program binary.", e)))?;
+        .map_err(|e| VceError::RiscZero(format!("Failed to create memory image from ELF: {e}. This may indicate an issue with the guest program binary.")))?;
     Ok(image.compute_id())
 }
 
@@ -75,7 +75,7 @@ fn get_prover_for_type(prover_type: ProverType) -> Result<Rc<dyn ProverServer>> 
     };
     
     get_prover_server(&opts)
-        .map_err(|e| VceError::ProofGenerationFailed(format!("Failed to initialize RISC Zero prover server: {}. Ensure RISC Zero toolchain is properly installed.", e)))
+        .map_err(|e| VceError::ProofGenerationFailed(format!("Failed to initialize RISC Zero prover server: {e}. Ensure RISC Zero toolchain is properly installed.")))
 }
 
 /// Generate a RISC Zero proof for a compliance check
@@ -86,7 +86,7 @@ fn get_prover_for_type(prover_type: ProverType) -> Result<Rc<dyn ProverServer>> 
 /// * `prover_type` - Type of prover to use (Local or Gpu)
 /// 
 /// # Returns
-/// A tuple of (serialized receipt, journal_output, journal_bytes)
+/// A tuple of (serialized receipt, `journal_output`, `journal_bytes`)
 pub fn generate_proof(
     spec_json: &str,
     system_data_json: &str,
@@ -102,18 +102,18 @@ pub fn generate_proof(
     // Prepare environment with inputs (1.0+ API: use .write_slice())
     let env = ExecutorEnv::builder()
         .write_slice(&to_vec(spec_json)
-            .map_err(|e| VceError::InputSerialization(format!("Failed to serialize compliance spec to JSON: {}", e)))?)
+            .map_err(|e| VceError::InputSerialization(format!("Failed to serialize compliance spec to JSON: {e}")))?)
         .write_slice(&to_vec(system_data_json)
-            .map_err(|e| VceError::InputSerialization(format!("Failed to serialize system data to JSON: {}", e)))?)
+            .map_err(|e| VceError::InputSerialization(format!("Failed to serialize system data to JSON: {e}")))?)
         .build()
-        .map_err(|e| VceError::GuestProgramExecution(format!("Failed to build executor environment: {}. This may indicate an issue with input data format.", e)))?;
+        .map_err(|e| VceError::GuestProgramExecution(format!("Failed to build executor environment: {e}. This may indicate an issue with input data format.")))?;
     
     // Execute the guest program
     let mut exec = ExecutorImpl::from_elf(env, guest_elf)
-        .map_err(|e| VceError::GuestProgramExecution(format!("Failed to create executor from guest ELF: {}. The guest program may be corrupted or incompatible.", e)))?;
+        .map_err(|e| VceError::GuestProgramExecution(format!("Failed to create executor from guest ELF: {e}. The guest program may be corrupted or incompatible.")))?;
     
     let session = exec.run()
-        .map_err(|e| VceError::GuestProgramExecution(format!("Guest program execution failed: {}. Check that inputs are valid JSON and guest program logic is correct.", e)))?;
+        .map_err(|e| VceError::GuestProgramExecution(format!("Guest program execution failed: {e}. Check that inputs are valid JSON and guest program logic is correct.")))?;
     
     // Get prover server based on requested type
     // Note: Real proof generation can take 10-20+ minutes. Use RISC0_DEV_MODE=1 for faster testing.
@@ -136,18 +136,18 @@ pub fn generate_proof(
     // Generate proof (this is the computationally expensive step)
     let ctx = VerifierContext::default();
     let receipt = prover.prove_session(&ctx, &session)
-        .map_err(|e| VceError::ProofGenerationFailed(format!("RISC Zero proof generation failed: {}. This step can take 10-20+ minutes for real proofs. For testing, use RISC0_DEV_MODE=1.", e)))?;
+        .map_err(|e| VceError::ProofGenerationFailed(format!("RISC Zero proof generation failed: {e}. This step can take 10-20+ minutes for real proofs. For testing, use RISC0_DEV_MODE=1.")))?;
     
     // Extract journal bytes (public outputs)
     let journal_bytes = receipt.receipt.journal.bytes.clone();
     
     // Extract output from journal using decode (1.0+ API)
     let journal_output: JournalOutput = receipt.receipt.journal.decode()
-        .map_err(|e| VceError::RiscZero(format!("Failed to decode JournalOutput from journal: {}. The guest program may not have committed the result correctly.", e)))?;
+        .map_err(|e| VceError::RiscZero(format!("Failed to decode JournalOutput from journal: {e}. The guest program may not have committed the result correctly.")))?;
     
     // Serialize receipt for storage
     let receipt_bytes = bincode::serialize(&receipt.receipt)
-        .map_err(|e| VceError::RiscZero(format!("Failed to serialize receipt for storage: {}", e)))?;
+        .map_err(|e| VceError::RiscZero(format!("Failed to serialize receipt for storage: {e}")))?;
     
     Ok((receipt_bytes, journal_output, journal_bytes))
 }
@@ -158,11 +158,11 @@ pub fn generate_proof(
 /// * `receipt_bytes` - Serialized RISC Zero receipt
 /// 
 /// # Returns
-/// A tuple of (journal_output, journal_bytes) if verification succeeds
+/// A tuple of (`journal_output`, `journal_bytes`) if verification succeeds
 pub fn verify_proof(receipt_bytes: &[u8]) -> Result<(JournalOutput, Vec<u8>)> {
     // Deserialize receipt
     let receipt: Receipt = bincode::deserialize(receipt_bytes)
-        .map_err(|e| VceError::ReceiptDeserialization(format!("Failed to deserialize receipt from bytes: {}. The receipt data may be corrupted.", e)))?;
+        .map_err(|e| VceError::ReceiptDeserialization(format!("Failed to deserialize receipt from bytes: {e}. The receipt data may be corrupted.")))?;
     
     // Get guest program ELF for image ID computation
     let guest_elf = get_guest_elf().ok_or_else(|| {
@@ -173,14 +173,14 @@ pub fn verify_proof(receipt_bytes: &[u8]) -> Result<(JournalOutput, Vec<u8>)> {
     
     // Compute image ID from ELF
     let image_id = compute_image_id(guest_elf)
-        .map_err(|e| VceError::ProofVerificationFailed(format!("Failed to compute image ID from guest ELF: {}. The ELF binary may be corrupted.", e)))?;
+        .map_err(|e| VceError::ProofVerificationFailed(format!("Failed to compute image ID from guest ELF: {e}. The ELF binary may be corrupted.")))?;
     
     // Verify the receipt (1.0+ API: verify takes image_id as Digest)
     if std::env::var("RISC0_DEV_MODE").unwrap_or_default() == "1" {
         println!("   ⚠ Skipping strict cryptographic verification in DEV_MODE");
     } else {
         receipt.verify(image_id)
-            .map_err(|e| VceError::ProofVerificationFailed(format!("RISC Zero cryptographic proof verification failed: {}. The proof may be invalid, tampered with, or generated by a different guest program version.", e)))?;
+            .map_err(|e| VceError::ProofVerificationFailed(format!("RISC Zero cryptographic proof verification failed: {e}. The proof may be invalid, tampered with, or generated by a different guest program version.")))?;
     }
     
     // Extract journal bytes
@@ -188,7 +188,7 @@ pub fn verify_proof(receipt_bytes: &[u8]) -> Result<(JournalOutput, Vec<u8>)> {
     
     // Extract output from journal using decode (1.0+ API)
     let journal_output: JournalOutput = receipt.journal.decode()
-        .map_err(|e| VceError::RiscZero(format!("Failed to decode JournalOutput from verified journal: {}. The journal format may be incorrect.", e)))?;
+        .map_err(|e| VceError::RiscZero(format!("Failed to decode JournalOutput from verified journal: {e}. The journal format may be incorrect.")))?;
     
     Ok((journal_output, journal_bytes))
 }

@@ -12,6 +12,7 @@ use sha2::{Sha256, Digest};
 use alloc::vec::Vec;
 use alloc::string::String;
 
+#[must_use] 
 pub fn check(spec: &Value, system_data: &Value) -> JournalOutput {
     // 1. Extraction of cryptographic artifacts
     let public_key_hex = match system_data.get("public_key").and_then(|v| v.as_str()) {

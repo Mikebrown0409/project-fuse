@@ -21,6 +21,7 @@ pub struct VerifiableComplianceEnvelope {
 
 impl VerifiableComplianceEnvelope {
     /// Create a new VCE
+    #[must_use] 
     pub fn new(spec: ComplianceSpec, proof: ComplianceProof) -> Self {
         Self {
             spec,

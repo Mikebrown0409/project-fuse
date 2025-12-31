@@ -10,7 +10,7 @@ impl ComplianceChecker for GdprDataResidencyChecker {
     fn check(&self, spec: &ComplianceSpec, system_data: &str) -> Result<ComplianceResult> {
         let data: Value = serde_json::from_str(system_data)
             .map_err(|e| fuse_core::VceError::InvalidSpec(
-                format!("Failed to parse system data: {}", e)
+                format!("Failed to parse system data: {e}")
             ))?;
 
         // Extract required region from constraints

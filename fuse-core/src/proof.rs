@@ -55,6 +55,7 @@ pub struct ComplianceProof {
 
 impl ComplianceProof {
     /// Create a new proof from a RISC Zero receipt
+    #[must_use] 
     pub fn from_risc_zero_receipt(
         spec_hash: String,
         receipt_bytes: Vec<u8>,
@@ -73,6 +74,7 @@ impl ComplianceProof {
 
     /// Create a new proof (placeholder for MVP)
     /// In production, this would generate an actual RISC Zero proof
+    #[must_use] 
     pub fn new(
         spec_hash: String,
         result: ComplianceResult,
@@ -89,7 +91,8 @@ impl ComplianceProof {
         }
     }
     
-    /// Check if this is a placeholder proof (empty proof_data) or a real proof
+    /// Check if this is a placeholder proof (empty `proof_data`) or a real proof
+    #[must_use] 
     pub fn is_placeholder(&self) -> bool {
         self.proof_data.is_empty()
     }

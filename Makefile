@@ -2,9 +2,9 @@
 
 .PHONY: test coverage build clean
 
-# Run all tests
+# Run all tests (excluding guest program which is RISC-V only)
 test:
-	RISC0_DEV_MODE=1 cargo test --workspace
+	RISC0_DEV_MODE=1 cargo test -p fuse-core -p fuse-cli -p fuse-checkers
 
 # Run integration tests only (in fuse-core)
 test-integration:

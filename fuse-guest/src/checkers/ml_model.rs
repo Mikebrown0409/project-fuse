@@ -5,6 +5,7 @@ use alloc::vec::Vec;
 use crate::checker::ComplianceResult;
 
 /// Check ML model usage constraint compliance
+#[must_use] 
 pub fn check(spec: &Value, system_data: &Value) -> ComplianceResult {
     // Extract usage constraints
     let max_usage = spec.get("constraints")
@@ -16,7 +17,7 @@ pub fn check(spec: &Value, system_data: &Value) -> ComplianceResult {
     let allowed_domains: Vec<&str> = spec.get("constraints")
         .and_then(|c| c.get("allowed_domains"))
         .and_then(|v| v.as_str())
-        .map(|s| s.split(',').map(|d| d.trim()).collect())
+        .map(|s| s.split(',').map(str::trim).collect())
         .unwrap_or_default();
 
     // Check model usage

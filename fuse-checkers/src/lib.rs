@@ -23,6 +23,7 @@ pub struct CheckerRegistry {
 }
 
 impl CheckerRegistry {
+    #[must_use] 
     pub fn new() -> Self {
         let mut registry = Self {
             checkers: HashMap::new(),
@@ -63,7 +64,7 @@ impl CheckerRegistry {
         }
 
         Err(fuse_core::VceError::InvalidSpec(
-            format!("No checker found for claim: {}", claim),
+            format!("No checker found for claim: {claim}"),
         ))
     }
 }

@@ -16,7 +16,7 @@ impl ComplianceChecker for C2paChecker {
     fn check(&self, _spec: &ComplianceSpec, system_data: &str) -> Result<ComplianceResult> {
         let data: Value = serde_json::from_str(system_data)
             .map_err(|e| fuse_core::VceError::InvalidSpec(
-                format!("Failed to parse system data: {}", e)
+                format!("Failed to parse system data: {e}")
             ))?;
 
         // Extract public key, message, and signature
@@ -41,17 +41,17 @@ impl ComplianceChecker for C2paChecker {
         // Decode hex
         let public_key_bytes = hex::decode(public_key_hex)
             .map_err(|e| fuse_core::VceError::InvalidSpec(
-                format!("Invalid public_key hex: {}", e)
+                format!("Invalid public_key hex: {e}")
             ))?;
 
         let message_bytes = hex::decode(message_hex)
             .map_err(|e| fuse_core::VceError::InvalidSpec(
-                format!("Invalid message hex: {}", e)
+                format!("Invalid message hex: {e}")
             ))?;
 
         let signature_bytes = hex::decode(signature_hex)
             .map_err(|e| fuse_core::VceError::InvalidSpec(
-                format!("Invalid signature hex: {}", e)
+                format!("Invalid signature hex: {e}")
             ))?;
 
         // Validate lengths
@@ -69,17 +69,17 @@ impl ComplianceChecker for C2paChecker {
         // Parse and verify
         let public_key = PublicKey::from_slice(&public_key_bytes)
             .map_err(|e| fuse_core::VceError::InvalidSpec(
-                format!("Invalid public key: {}", e)
+                format!("Invalid public key: {e}")
             ))?;
 
         let signature = Signature::from_slice(&signature_bytes)
             .map_err(|e| fuse_core::VceError::InvalidSpec(
-                format!("Invalid signature: {}", e)
+                format!("Invalid signature: {e}")
             ))?;
 
         // Verify signature
         match public_key.verify(&message_bytes, &signature) {
-            Ok(_) => Ok(ComplianceResult::Pass),
+            Ok(()) => Ok(ComplianceResult::Pass),
             // Hybrid Test Phase 2: Proceed even if signature check fails
             // This allows us to test the JSON redaction logic on the host as well
             Err(_) => {

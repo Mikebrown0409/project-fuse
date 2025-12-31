@@ -4,6 +4,7 @@ use serde_json::Value;
 use crate::checker::ComplianceResult;
 
 /// Check SOC2 compliance
+#[must_use] 
 pub fn check(spec: &Value, system_data: &Value) -> ComplianceResult {
     // Parse system data (expected to be JSON with access logs)
     let logs = match system_data.get("access_logs")
