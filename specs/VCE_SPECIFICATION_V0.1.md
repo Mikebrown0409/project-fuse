@@ -23,28 +23,22 @@
 
 ### What is VCE?
 
-The Verifiable Compliance Envelope (VCE) is a standard cryptographic artifact that proves a specific compliance claim was mechanically verified, without revealing proprietary systems, sensitive data, or internal logic.
+The **Verifiable Compliance Envelope (VCE)** is a standard cryptographic artifact that proves a specific procedural verification ran to completion, without revealing proprietary systems, sensitive data, or internal logic.
 
-### Problem Statement
-
-Compliance verification today relies on trust-based models:
-- Auditors trust organizations
-- Organizations trust their own documentation
-- Regulators trust auditors
-- **No independent cryptographic verification**
-
-This creates a fundamental tension: organizations must choose between **transparency** (proving compliance) and **confidentiality** (protecting sensitive data).
+VCE is the standard format used by **Project FUSE** to package proofs-of-verification.
 
 ### Key Principle
 
 VCE proves:
-> "This system ran a compliance checker against this specification and passed."
+> "This system ran a procedural checker against this specification and passed."
 
 **Without revealing:**
 - Proprietary systems
 - Sensitive data
 - Internal logic
 - Operational details
+
+**Note**: VCE proves *that* a process occurred; it does not assert the *truth* of the content being verified. Higher-level trust decisions belong to downstream systems.
 
 ### Design Goals
 

@@ -1,25 +1,34 @@
-# Project FUSE (Verifiable Compliance Envelope Protocol)
+# Project FUSE (Verifiable Proof-of-Verification)
 
-**Tagline:** "The checksum for compliance — portable, machine-verifiable assurance."
+**Tagline:** "The checksum for verification — portable, machine-verifiable assurance."
 
 ![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)
-![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)
 ![Specification](https://img.shields.io/badge/spec-VCE%20v0.1-green.svg)
 ![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)
 
 ## Overview
 
-Project FUSE defines a standard cryptographic artifact — the Verifiable Compliance Envelope (VCE) — that proves a specific compliance claim was mechanically verified, without revealing proprietary systems, sensitive data, or internal logic.
+Project FUSE defines a standard cryptographic artifact — the **Verifiable Compliance Envelope (VCE)** — that proves a specific procedural verification ran to completion, without revealing proprietary systems, sensitive data, or internal logic.
 
-**Key Principle:** We prove "This system ran a checker against this specification and passed."
+**Key Principle:** FUSE proves *that* a process occurred; it does not assert the *truth* of the content being verified. We prove "This system ran a procedural checker against this specification and passed."
 
 ## Status
 
-Early-stage open-source project building the standard for verifiable compliance proofs.
+Stable open-source infrastructure for verifiable procedural proofs.
 
-**MVP Status**: ✅ Complete - Ready for demonstration and early adoption. See [docs/IMPLEMENTATION_STATUS.md](docs/IMPLEMENTATION_STATUS.md) for details.
+**Version 1.2.0**: ✅ **Current** - Hardened security, finalized scope boundaries, and explicit stability guarantees.
 
 **VCE Specification v0.1**: ✅ **Published** - The formal VCE specification is now available. See [specs/VCE_SPECIFICATION_V0.1.md](specs/VCE_SPECIFICATION_V0.1.md) for the complete specification.
+
+## Stability Contract
+
+FUSE follows [Semantic Versioning](https://semver.org/). As of v1.0.0, the core proof format and verification semantics are considered stable.
+
+- **Stable**: VCE file format, `ComplianceSpec` structure, and proof verification logic.
+- **Experimental**: GPU/Hardware acceleration (see `SECURITY.md` for known limitations).
+
+*Breaking changes to the proof surface or core protocol will only be introduced in v2.0.0.*
 
 ## Quick Start
 
@@ -50,11 +59,11 @@ For more examples, see [docs/QUICKSTART.md](docs/QUICKSTART.md).
 
 ```
 ProjectFuse/
-├── fuse-core/          # Core VCE protocol implementation
+├── fuse-core/          # Core protocol implementation
 ├── fuse-cli/           # CLI tools (fuse-prove, fuse-verify)
-├── fuse-checkers/      # Example compliance checkers
+├── fuse-checkers/      # Example procedural checkers
 ├── examples/           # Example specs and test data
-│   ├── specs/         # VCE specification files
+│   ├── specs/         # Example specification files
 │   └── systems/       # Sample system data for testing
 ├── specs/              # VCE specification and schemas
 │   ├── VCE_SPECIFICATION_V0.1.md  # Formal specification
@@ -69,7 +78,7 @@ ProjectFuse/
    - `fuse-verify <.vce>` → returns pass/fail
 
 2. **Example Spec Files**
-   - SOC2 audit check
+   - SOC2 procedural check
    - GDPR data residency verification
    - Supply-chain provenance validation
    - ML model usage constraint
@@ -90,8 +99,8 @@ ProjectFuse/
 | Phase | Timeline | Focus | Key Deliverables |
 |-------|----------|-------|------------------|
 | Phase 1 | ✅ Complete | zkVM integration & proof generation | Real RISC Zero proofs, CLI tools, core checkers |
-| Phase 2 | Q1 2026 | Checker registry & enhanced validation | Plugin system, JSON schema validation, additional frameworks |
-| Phase 3 | Q2-Q3 2026 | Performance optimization | GPU acceleration, proof batching, < 5 minute generation |
+| Phase 2 | ✅ Complete | Testing & Reliability | Official C2PA fixtures, tamper detection, integration tests |
+| Phase 3 | ✅ Complete | Security Basics | Fuzzing, internal review, security audit readiness |
 | Phase 4 | Q4 2026 | Ecosystem expansion | Auditor tools, governance framework, enterprise features |
 
 ## Specification
@@ -165,9 +174,8 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ## Note on Zero-Knowledge Proofs
 
-**Phase 1 Status**: ✅ **Complete** - RISC Zero zkVM integration is fully operational. The system generates real cryptographic proofs using RISC Zero 1.2.6. 
+**Status**: ✅ **Complete** - RISC Zero zkVM integration is fully operational. The system generates real cryptographic proofs using RISC Zero 1.2.6. 
 
 **Performance**: Real proof generation takes 10-20+ minutes depending on data size. For development and testing, use `RISC0_DEV_MODE=1` for instant proofs (not cryptographically secure).
 
 **Usage**: Once the guest program is built, `fuse-prove` automatically generates real zkVM proofs. The system maintains backward compatibility with placeholder proofs when the guest program is not available.
-

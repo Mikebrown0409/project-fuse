@@ -2,7 +2,9 @@
 
 ## Overview
 
-Project FUSE (Verifiable Compliance Envelope Protocol) is a zero-knowledge proof system for verifiable compliance claims. This document describes the architecture and design decisions.
+Project FUSE (Verifiable Proof-of-Verification) is a zero-knowledge proof system for verifiable procedural claims. This document describes the architecture and design decisions.
+
+**Key Principle**: FUSE proves *that* a process occurred; it does not assert the *truth* of the content being verified. We prove "This system ran a procedural checker against this specification and passed."
 
 **Note**: For the complete, formal specification of the VCE format, see [VCE Specification v0.1](../specs/VCE_SPECIFICATION_V0.1.md). This architecture document describes the implementation; the specification document defines the standard format.
 
