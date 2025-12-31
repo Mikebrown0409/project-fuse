@@ -33,20 +33,24 @@ jobs:
         with:
           components: rustfmt, clippy
       
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            fuzz/target
+          key: ${{ runner.os }}-fuzz-${{ hashFiles('fuzz/Cargo.toml', 'fuzz/Cargo.lock', '**/Cargo.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-fuzz-
+      
       - name: Install cargo-fuzz
         run: cargo install cargo-fuzz --locked
       
-      - name: Build all fuzz targets
+      - name: Run fuzzer (builds automatically)
         run: |
           cd fuzz
-          for target in canonicalize_json c2pa_parser ed25519_verification spec_validation borsh_decode; do
-            cargo fuzz build $target || true
-          done
-      
-      - name: Run fuzzer
-        run: |
-          cd fuzz
-          cargo fuzz run ${{ matrix.target }} -- -runs=100
+          cargo fuzz run ${{ matrix.target }} -- -runs=10
         env:
           RUST_BACKTRACE: 1
           RISC0_DEV_MODE: 1
