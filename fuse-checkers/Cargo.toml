@@ -11,7 +11,7 @@ categories = ["cryptography"]
 readme = "README.md"
 
 [dependencies]
-fuse-core = { path = "../fuse-core" }
+fuse-core = "1.2.0"
 serde_json.workspace = true
 anyhow.workspace = true
 thiserror.workspace = true
