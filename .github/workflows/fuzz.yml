@@ -14,6 +14,8 @@ jobs:
   fuzz:
     name: Fuzz ${{ matrix.target }}
     runs-on: ubuntu-latest
+    # Explicit status check name for branch protection
+    # This ensures the check appears in branch protection settings
     
     strategy:
       fail-fast: false
