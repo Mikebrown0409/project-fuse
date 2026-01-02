@@ -1744,7 +1744,7 @@ version = "1.2.0"
 dependencies = [
  "anyhow",
  "ed25519-compact",
- "fuse-core",
+ "fuse-core 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "hex",
  "serde_json",
  "thiserror 1.0.69",
@@ -1761,7 +1761,7 @@ dependencies = [
  "ed25519-compact",
  "ed25519-dalek",
  "fuse-checkers",
- "fuse-core",
+ "fuse-core 1.2.0",
  "hex",
  "img-parts",
  "pem",
@@ -1781,6 +1781,26 @@ dependencies = [
  "bincode",
  "chrono",
  "fuse-cli",
+ "hex",
+ "risc0-binfmt",
+ "risc0-zkvm",
+ "risc0-zkvm-platform",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "sha2",
+ "thiserror 1.0.69",
+]
+
+[[package]]
+name = "fuse-core"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "613430756ebc672c32054edde717a0e557c3ab01c60c058c8abb4b714d3268da"
+dependencies = [
+ "anyhow",
+ "bincode",
+ "chrono",
  "hex",
  "risc0-binfmt",
  "risc0-zkvm",
